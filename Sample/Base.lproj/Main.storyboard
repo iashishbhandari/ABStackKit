@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ExampleXIB View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ExampleXIBViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-mS-K1G" customClass="StackView" customModule="ABStackKit">
+                                <rect key="frame" x="9" y="64" width="357" height="594"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="animDuration">
+                                        <real key="value" value="0.27000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                        <real key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBW-xq-8zB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="EDc-m0-9p0"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="1" largeTitleDisplayMode="always" id="PrF-Np-QCT">
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="3" id="ah8-ND-0SB">
+                                                <connections>
+                                                    <action selector="tapOnBarButton:" destination="BYZ-38-t0r" id="Jxv-9q-auT"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem title="2" id="scY-BC-QXq">
+                                                <connections>
+                                                    <action selector="tapOnBarButton:" destination="BYZ-38-t0r" id="VGy-dG-TzC"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Y22-mS-K1G" firstAttribute="top" secondItem="rBW-xq-8zB" secondAttribute="bottom" id="EGk-4P-9wY"/>
+                            <constraint firstItem="Y22-mS-K1G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="9" id="Ewu-6l-I8R"/>
+                            <constraint firstItem="rBW-xq-8zB" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZhA-ej-LOu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Y22-mS-K1G" secondAttribute="bottom" constant="9" id="aIP-Wb-nIB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y22-mS-K1G" secondAttribute="trailing" constant="9" id="hBd-me-hnc"/>
+                            <constraint firstItem="rBW-xq-8zB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tcJ-wr-las"/>
+                            <constraint firstItem="rBW-xq-8zB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="y6L-Nw-oqa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="stackView" destination="Y22-mS-K1G" id="7oq-rg-ewt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
