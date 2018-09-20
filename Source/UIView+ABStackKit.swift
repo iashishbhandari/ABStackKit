@@ -4,6 +4,13 @@ import UIKit
 
 public extension UIView {
     
+    static func loadViewFromNIB(name: String?) -> UIView? {
+        if let name = name {
+            return Bundle.main.loadNibNamed(name, owner: nil, options: nil)?[0] as? UIView
+        }
+        return nil
+    }
+    
     func addSizeAnchors(onView view: UIView?, size: CGSize) {
         if let v = view {
             v.translatesAutoresizingMaskIntoConstraints = false

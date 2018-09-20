@@ -5,19 +5,7 @@ import UIKit
 @available(iOS 9.0, *)
 @IBDesignable public class StackView: UIView {
     
-    fileprivate var isAnimated = false
-    fileprivate var didSetConstraints = false
-    fileprivate var childViewEndOffsets = [Int]()
-    fileprivate var childViewNotifiedIndex: Int = -1
-    fileprivate var scrollLastContentOffset: CGFloat = -1
-    fileprivate var childViewRangeOffsets = [CountableClosedRange<Int>]()
-
-    fileprivate var stackV: UIStackView = {
-        let instance = UIStackView()
-        instance.translatesAutoresizingMaskIntoConstraints = false
-        return instance
-    }()
-    
+    // MARK: public properties
     @IBInspectable public var animDuration: Double = 0 {
         didSet {
             isAnimated = (animDuration > 0)
@@ -53,7 +41,6 @@ import UIKit
                 case .vertical:
                     scrollView.contentOffset.y = 0
                 }
-                childViewNotifiedIndex = 0
             }
         }
     }
@@ -65,7 +52,7 @@ import UIKit
         return instance
     }()
     
-    public var axis: UILayoutConstraintAxis = .vertical {
+    public var axis: NSLayoutConstraint.Axis = .vertical {
         didSet {
             stackV.axis = axis
             if didSetConstraints {
@@ -78,7 +65,7 @@ import UIKit
         }
     }
     
-    public var alignment: UIStackViewAlignment {
+    public var alignment: UIStackView.Alignment {
         get {
             return stackV.alignment
         }
@@ -87,12 +74,18 @@ import UIKit
         }
     }
     
-    public var distribution: UIStackViewDistribution {
+    public var distribution: UIStackView.Distribution {
         get {
             return stackV.distribution
         }
         set {
             stackV.distribution = newValue
+        }
+    }
+    
+    public var arrangedSubviews: [UIView] {
+        get {
+            return stackV.arrangedSubviews
         }
     }
     
@@ -104,8 +97,29 @@ import UIKit
             scrollView.layoutMargins = newValue
         }
     }
-
-    override public func didMoveToSuperview() {
+    
+    // MARK: private properties
+    fileprivate var isAnimated = false
+    fileprivate var didSetConstraints = false
+    fileprivate var viewModel: StackViewModel!
+    fileprivate var stackV: UIStackView = {
+        let instance = UIStackView()
+        instance.translatesAutoresizingMaskIntoConstraints = false
+        return instance
+    }()
+    
+    // MARK: Life cycle methods
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.viewModel = StackViewModel(self)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.viewModel = StackViewModel(self)
+    }
+    
+    public override func didMoveToSuperview() {
         super.didMoveToSuperview()
         translatesAutoresizingMaskIntoConstraints = false
         scrollView.delegate = self
@@ -114,7 +128,7 @@ import UIKit
         setNeedsUpdateConstraints()
     }
     
-    override public func updateConstraints() {
+    public override func updateConstraints() {
         super.updateConstraints()
         
         if !didSetConstraints {
@@ -140,14 +154,21 @@ import UIKit
     }
 }
 
+// MARK: Protocol managing the lifecycle of a StackView
 public protocol StackViewEmbeddable: class {
-    func willConfigure(_ stackView: StackView) -> Void
-    func numberOfChildViews() -> Int
+    
     func childViewForIndex(_ index: Int) -> UIView
+    
     func didSelectChildView(_ view: UIView, index: Int) -> Void
+    
     func didScrollToChildView(_ view: UIView, index: Int) -> Void
+    
+    func numberOfChildViews() -> Int
+    
+    func willConfigure(_ stackView: StackView) -> Void
 }
 
+// MARK: Permitted operations on a StackView
 extension StackView {
     
     public enum Position {
@@ -166,13 +187,6 @@ extension StackView {
         tapGesture.numberOfTouchesRequired = 1
         v.addGestureRecognizer(tapGesture)
         v.isHidden = isAnimated
-        if index < stackV.arrangedSubviews.count {
-            v.tag = index
-            stackV.insertArrangedSubview(v, at: index)
-        } else {
-            v.tag = stackV.arrangedSubviews.count
-            stackV.addArrangedSubview(v)
-        }
         
         var value = 0
         switch axis {
@@ -184,19 +198,28 @@ extension StackView {
             addSizeAnchors(onView: v, size: CGSize(width: min(v.bounds.width, bounds.width-layoutMargins.left-layoutMargins.right), height: v.bounds.height))
         }
         
+        if index < stackV.arrangedSubviews.count {
+            v.tag = index
+            stackV.insertArrangedSubview(v, at: index)
+            viewModel.trackEndOffsets(forIndex: index, value: value+Int(spacing))
+            viewModel.recalculateChildViewOffsets(fromIndex: index+1, delta: value)
+        } else {
+            v.tag = stackV.arrangedSubviews.count
+            stackV.addArrangedSubview(v)
+            viewModel.trackEndOffsets(forIndex: v.tag, value: value+Int(spacing))
+        }
+        
         if isAnimated {
             UIView.animate(withDuration: animDuration) {
                 v.isHidden = false
             }
         }
-        
-        // For tracking scroll positions
-        childViewEndOffsets.append(value)
-        childViewRangeOffsets.append(0...0)
-        if v.tag > 0 {
-            childViewEndOffsets[v.tag] = value + Int(spacing) + childViewEndOffsets[v.tag - 1]
+    }
+    
+    @objc private func onChildViewTap(_ sender: UITapGestureRecognizer?) {
+        if let v = sender?.view {
+            delegate?.didSelectChildView(v, index: v.tag)
         }
-        childViewRangeOffsets[v.tag] = (childViewEndOffsets[v.tag] - value)...childViewEndOffsets[v.tag]
     }
     
     public func removeChildView(_ view: UIView?) {
@@ -207,10 +230,8 @@ extension StackView {
             UIView.animate(withDuration: animDuration) {
                 v.isHidden = true
             }
-            resizeChildView(v, newSize: .zero)
-        } else {
-            resizeChildView(v, newSize: .zero)
         }
+        resizeChildView(v, newSize: .zero)
     }
     
     public func resizeChildView(_ view: UIView?, newSize: CGSize) {
@@ -222,7 +243,7 @@ extension StackView {
             case .vertical:
                 delta = Int(newSize.height - v.bounds.height)
             }
-            recalculateChildViewOffsets(from: v.tag, delta: delta)
+            viewModel.recalculateChildViewOffsets(fromIndex: v.tag, delta: delta)
             v.constraint(withIdentifier: ConstraintTag.W)?.constant = min(newSize.width, stackV.bounds.width)
             v.constraint(withIdentifier: ConstraintTag.H)?.constant = min(newSize.height, stackV.bounds.height)
             if isAnimated {
@@ -244,25 +265,6 @@ extension StackView {
         }
     }
     
-    private func recalculateChildViewOffsets(from index: Int, delta: Int) {
-        guard index < self.childViewEndOffsets.count && index < self.childViewRangeOffsets.count else {
-            return
-        }
-        DispatchQueue.global(qos: .background).async {
-            for i in index..<self.childViewEndOffsets.count {
-                self.childViewEndOffsets[i] += delta
-//                let oldKey = self.childViewOffsetIndexMap.keys()[i]
-//                var newKey = 0...0
-//                if i > 0 {
-//                    newKey = self.childViewEndOffsets[i-1]...self.childViewEndOffsets[i]
-//                } else {
-//                    newKey = (self.childViewEndOffsets[i]-self.childViewEndOffsets[i])...self.childViewEndOffsets[i]
-//                }
-//                self.childViewOffsetIndexMap.switchKey(oldkey: oldKey, newKey: newKey, atIndex: i)
-            }
-        }
-    }
-    
     private func scrollToChildView(index: Int) {
         if index < stackV.arrangedSubviews.count {
             let childView = stackV.arrangedSubviews[index]
@@ -277,65 +279,18 @@ extension StackView {
         }
     }
     
-    @objc private func onChildViewTap(_ sender: UITapGestureRecognizer?) {
-        if let v = sender?.view {
-            delegate?.didSelectChildView(v, index: v.tag)
+    @available(iOS 11.0, *)
+    public func setCustomSpacing(_ spacing: CGFloat, atIndex index: Int) {
+        if index > 0 && index < stackV.arrangedSubviews.count {
+            stackV.setCustomSpacing(spacing, after: stackV.arrangedSubviews[index-1])
         }
     }
 }
 
+// MARK: Observing the scrollView on a StackView
 extension StackView: UIScrollViewDelegate {
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var offsetValue = 0
-        var parity = true
-        switch axis {
-        case .horizontal:
-            if (self.scrollLastContentOffset > scrollView.contentOffset.x) {
-                // moving left
-                parity = false
-                offsetValue = Int(scrollView.contentOffset.x - scrollView.layoutMargins.right)
-            }
-            else if (self.scrollLastContentOffset < scrollView.contentOffset.x) {
-                // moving right
-                parity = true
-                offsetValue = Int(scrollView.contentOffset.x + bounds.width - scrollView.layoutMargins.left)
-            }
-            // update the newly acquired position
-            self.scrollLastContentOffset = scrollView.contentOffset.x
-            
-        case .vertical:
-            if (self.scrollLastContentOffset > scrollView.contentOffset.y) {
-                // moving up
-                parity = false
-                offsetValue = Int(scrollView.contentOffset.y - scrollView.layoutMargins.top)
-            }
-            else if (self.scrollLastContentOffset < scrollView.contentOffset.y) {
-                // moving down
-                parity = true
-                offsetValue = Int(scrollView.contentOffset.y + bounds.height - scrollView.layoutMargins.bottom)
-            }
-            // update the newly acquired position
-            self.scrollLastContentOffset = scrollView.contentOffset.y
-        }
-        
-        if let index = getProximityIndex(offsetValue, parity: parity),
-            index < stackV.arrangedSubviews.count {
-            delegate?.didScrollToChildView(stackV.arrangedSubviews[index], index: index)
-            childViewNotifiedIndex = index
-        }
-    }
-    
-    private func getProximityIndex(_ contentOffset: Int, parity: Bool) -> Int? {
-        if childViewNotifiedIndex >= 0 && childViewNotifiedIndex < childViewRangeOffsets.count {
-            var parityIndex = parity ? (childViewNotifiedIndex + 1) : (childViewNotifiedIndex - 1)
-            while parityIndex >= 0 && parityIndex < childViewRangeOffsets.count {
-                if childViewRangeOffsets[parityIndex] ~= contentOffset {
-                    return parityIndex
-                }
-                parityIndex = parity ? (parityIndex + 1) : (parityIndex - 1)
-            }
-        }
-        return nil
+        viewModel.childViewOffsetOnScrollView(scrollView)
     }
 }

@@ -15,13 +15,6 @@ class ExampleXIBViewController: UIViewController {
         stackView.addGestureRecognizer(tapGesture)
     }
     
-    @objc fileprivate func tapOnStackView(_ sender: UITapGestureRecognizer) {
-        stackView.axis = (stackView.axis == .vertical) ? .horizontal : .vertical
-        for view in stackView.subviews {
-            stackView.resizeChildView(view, newSize: CGSize(width: view.bounds.size.height, height: view.bounds.size.width))
-        }
-    }
-    
     @IBAction func tapOnBarButton(_ sender: Any) {
         if let btn = sender as? UIBarButtonItem {
             switch btn.title {
@@ -33,42 +26,56 @@ class ExampleXIBViewController: UIViewController {
             }
         }
     }
+    
+    @objc private func tapOnStackView(_ sender: UITapGestureRecognizer) {
+        stackView.backgroundColor = .randomColor
+    }
 }
 
 extension ExampleXIBViewController: StackViewEmbeddable {
     
     func willConfigure(_ stackView: StackView) {
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .equalCentering
+        stackView.distribution = .equalSpacing
         stackView.layoutMargins = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
     }
     
     func numberOfChildViews() -> Int {
-        return 6
+        return 5
     }
     
     func childViewForIndex(_ index: Int) -> UIView {
-        let childView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width/2, height: view.bounds.height/2))
-        childView.backgroundColor = .blue
-        childView.isUserInteractionEnabled = true
-
-        let lblNumber = UILabel()
-        lblNumber.text = "View \(index+1)"
-        lblNumber.textColor = .white
-        childView.addSubview(lblNumber)
-        childView.addCenterXYAnchors(onView: lblNumber)
-        
-        return childView
+        switch index {
+        case 1:
+            let childView = HorizontalStackView.loadFromNIb()
+            childView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: childView.bounds.height)
+            return childView
+            
+        case 3:
+            let childView = StackViewButton(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height/2))
+            return childView
+            
+        default:
+            let childView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width/2, height: view.bounds.height/2))
+            childView.backgroundColor = .blue
+            
+            let lblNumber = UILabel()
+            lblNumber.text = "View \(index+1)"
+            lblNumber.textColor = .white
+            childView.addSubview(lblNumber)
+            childView.addCenterXYAnchors(onView: lblNumber)
+            
+            return childView
+        }
     }
     
     func didSelectChildView(_ view: UIView, index: Int) {
-        stackView.resizeChildView(view, newSize: CGSize(width: view.bounds.height, height: view.bounds.width))
+        view.backgroundColor = .randomColor
     }
     
     func didScrollToChildView(_ view: UIView, index: Int) {
-        print("View \(index+1)")
-        
+        print("Scrolled on ChildView \(index+1)")
     }
 }
 

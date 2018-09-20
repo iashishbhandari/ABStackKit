@@ -7,7 +7,6 @@ class ExampleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
         
         // setup the stack view
         let stackView = StackView(frame: view.frame)
@@ -34,11 +33,11 @@ extension ExampleViewController: StackViewEmbeddable {
         stackView.spacing = 9
         stackView.axis = .vertical
         stackView.animDuration = 0.99
-        stackView.clockRadian = 0.003
+        stackView.clockRadian = 0.09
         stackView.alignment = .center
         stackView.backgroundColor = .red
         stackView.distribution = .equalSpacing
-        stackView.layoutMargins = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        stackView.scrollView.showsVerticalScrollIndicator = false
     }
     
     func numberOfChildViews() -> Int {
@@ -46,7 +45,7 @@ extension ExampleViewController: StackViewEmbeddable {
     }
     
     func childViewForIndex(_ index: Int) -> UIView {
-        let childView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width/2, height: view.bounds.height/2))
+        let childView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width/2, height: view.bounds.height/4))
         childView.backgroundColor = .blue
         childView.isUserInteractionEnabled = true
         
@@ -69,7 +68,7 @@ extension ExampleViewController: StackViewEmbeddable {
     }
     
     func didScrollToChildView(_ view: UIView, index: Int) {
-        print("View \(index+1)")
+        print("Scrolled on ChildView \(index+1)")
     }
 }
 

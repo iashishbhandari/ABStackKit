@@ -50,6 +50,6 @@ class ExampleStackViewController: StackViewController {
     }
     
     override func didScrollToChildView(_ view: UIView, index: Int) {
-        print("View \(index)")
+        print("Scrolled on ChildView \(index)")
     }
 }

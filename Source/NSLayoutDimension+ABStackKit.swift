@@ -2,7 +2,7 @@
 
 import UIKit
 
-extension NSLayoutDimension {
+public extension NSLayoutDimension {
     
     func constraintEqualTo(constant: CGFloat, identifier: String) -> NSLayoutConstraint {
         let constraint = self.constraint(equalToConstant: constant)
@@ -17,7 +17,7 @@ extension NSLayoutDimension {
     }
 }
 
-extension NSLayoutXAxisAnchor {
+public extension NSLayoutXAxisAnchor {
     
     func constraintEqualTo(anchor: NSLayoutXAxisAnchor, identifier: String, constant: CGFloat) -> NSLayoutConstraint {
         let constraint = self.constraint(equalTo: anchor, constant: constant)
@@ -26,7 +26,7 @@ extension NSLayoutXAxisAnchor {
     }
 }
 
-extension NSLayoutYAxisAnchor {
+public extension NSLayoutYAxisAnchor {
     
     func constraintEqualTo(anchor: NSLayoutYAxisAnchor, identifier: String, constant: CGFloat) -> NSLayoutConstraint {
         let constraint = self.constraint(equalTo: anchor, constant: constant)

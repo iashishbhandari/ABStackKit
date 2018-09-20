@@ -1,6 +1,6 @@
 # ABStackKit
 
-Written in Swift 4, use a scrollable StackView (like UIScrollView). Your view controller can also subclass a StackViewController to manage the lifecycle of its StackView. Additionally if you need to color its background or apply rotation on it or simply get it on a portion of your controller's view, this is the one library you need. Only Swift compatible.
+Written in Swift 4, presenting a colourful scrollable StackView. Simply manage the lifecycle of the StackView via StackViewEmbeddable protocol or subclass the included StackViewController. Additionally if you need to colour its background or put some rotation or get it on a portion of your view, this is the one library you need. Only Swift compatible.
 
 
 ## Installation with CocoaPods
@@ -48,7 +48,7 @@ view.addSubview(stackView)
 view.addEdgeAnchors(onView: stackView)
 
 
-// add your views with protocol StackViewEmbeddable methods
+// implement methods from StackViewEmbeddable protocol
 
 func willConfigure(_ stackView: StackView) {
     stackView.axis = .vertical
