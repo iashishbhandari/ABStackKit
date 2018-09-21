@@ -6,7 +6,7 @@ s.homepage = "https://bitbucket.org/iashishbhandari"
 s.license  = 'MIT'
 s.author = { "Ashish Bhandari" => "ashishbhandariplus@gmail.com" }
 s.platform = :ios
-s.source = { :git => "https://github.com/iashishbhandari/ABStackKit", :tag => "#{s.version}"}
+s.source = { :git => "https://github.com/iashishbhandari/ABStackKit.git", :tag => "#{s.version}"}
 
 s.swift_version = '4.2'
 s.ios.deployment_target = '9.0'
