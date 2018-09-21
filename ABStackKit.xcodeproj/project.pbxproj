@@ -16,6 +16,7 @@
 		A11D4792214524010070A3C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A11D4790214524010070A3C3 /* LaunchScreen.storyboard */; };
 		A11D479A214548C20070A3C3 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D4799214548C20070A3C3 /* StackViewController.swift */; };
 		A11D479C21454E790070A3C3 /* ExampleStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D479B21454E790070A3C3 /* ExampleStackViewController.swift */; };
+		A13F0BFB215521F100AFDD60 /* ABStackKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A13F0BFA215521F100AFDD60 /* ABStackKit.podspec */; };
 		A15689C621451DED007A7966 /* ABStackKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A15689C421451DED007A7966 /* ABStackKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A15689CD21451FEE007A7966 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15689CC21451FEE007A7966 /* StackView.swift */; };
 		A15689D12145206E007A7966 /* UIView+ABStackKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15689CF2145206E007A7966 /* UIView+ABStackKit.swift */; };
@@ -41,6 +42,7 @@
 		A11D4793214524010070A3C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A11D4799214548C20070A3C3 /* StackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
 		A11D479B21454E790070A3C3 /* ExampleStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStackViewController.swift; sourceTree = "<group>"; };
+		A13F0BFA215521F100AFDD60 /* ABStackKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ABStackKit.podspec; sourceTree = "<group>"; };
 		A15689C121451DED007A7966 /* ABStackKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ABStackKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A15689C421451DED007A7966 /* ABStackKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ABStackKit.h; sourceTree = "<group>"; };
 		A15689C521451DED007A7966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		A19D6E47214BE31400928A5F /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
+				A13F0BFA215521F100AFDD60 /* ABStackKit.podspec */,
 				A1DC0AD5214C0108000E8C70 /* LICENSE */,
 				A1DC0AD6214C0109000E8C70 /* README.md */,
 			);
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1DC0AD8214C0109000E8C70 /* README.md in Resources */,
+				A13F0BFB215521F100AFDD60 /* ABStackKit.podspec in Resources */,
 				A1DC0AD7214C0109000E8C70 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
