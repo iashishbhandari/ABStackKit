@@ -2,17 +2,18 @@
 
 import UIKit
 
-@available(iOS 9.0, *)
-@IBDesignable public class StackView: UIView {
+@IBDesignable
+public class StackView: UIView {
     
-    // MARK: public properties
-    @IBInspectable public var animDuration: Double = 0 {
+    @IBInspectable
+    public var animDuration: Double = 0 {
         didSet {
             isAnimated = (animDuration > 0)
         }
     }
 
-    @IBInspectable public var spacing: CGFloat {
+    @IBInspectable
+    public var spacing: CGFloat {
         get {
             return stackV.spacing
         }
@@ -21,13 +22,14 @@ import UIKit
         }
     }
     
-    @IBInspectable public var clockRadian: CGFloat = .pi*0 {
+    @IBInspectable
+    public var clockRadian: CGFloat = .pi*0 {
         didSet {
             scrollView.transform = scrollView.transform.rotated(by: clockRadian)
         }
     }
     
-    weak public var delegate: StackViewEmbeddable? {
+    public weak var delegate: StackViewEmbeddable? {
         didSet {
             if stackV.arrangedSubviews.count == 0,
                 let delegate = self.delegate {
@@ -40,6 +42,8 @@ import UIKit
                     scrollView.contentOffset.x = 0
                 case .vertical:
                     scrollView.contentOffset.y = 0
+                @unknown default:
+                    break
                 }
             }
         }
@@ -98,11 +102,10 @@ import UIKit
         }
     }
     
-    // MARK: private properties
-    fileprivate var isAnimated = false
-    fileprivate var didSetConstraints = false
-    fileprivate var viewModel: StackViewModel!
-    fileprivate var stackV: UIStackView = {
+    private var isAnimated = false
+    private var didSetConstraints = false
+    private var viewModel: StackViewModel!
+    private var stackV: UIStackView = {
         let instance = UIStackView()
         instance.translatesAutoresizingMaskIntoConstraints = false
         return instance
@@ -147,6 +150,8 @@ import UIKit
                 stackV.heightAnchor.constraintEqualTo(anchor: scrollView.heightAnchor, identifier: ConstraintTag.H).isActive = true
             case .vertical:
                 stackV.widthAnchor.constraintEqualTo(anchor: scrollView.widthAnchor, identifier: ConstraintTag.W).isActive = true
+            @unknown default:
+                break
             }
             
             didSetConstraints = true
@@ -155,8 +160,7 @@ import UIKit
 }
 
 // MARK: Protocol managing the lifecycle of a StackView
-public protocol StackViewEmbeddable: class {
-    
+public protocol StackViewEmbeddable: AnyObject {
     func childViewForIndex(_ index: Int) -> UIView
     
     func didSelectChildView(_ view: UIView, index: Int) -> Void
@@ -170,7 +174,6 @@ public protocol StackViewEmbeddable: class {
 
 // MARK: Permitted operations on a StackView
 extension StackView {
-    
     public enum Position {
         case first
         case index(Int)
@@ -196,6 +199,8 @@ extension StackView {
         case .vertical:
             value = Int(v.bounds.height)
             addSizeAnchors(onView: v, size: CGSize(width: min(v.bounds.width, bounds.width-layoutMargins.left-layoutMargins.right), height: v.bounds.height))
+        @unknown default:
+            break
         }
         
         if index < stackV.arrangedSubviews.count {
@@ -242,6 +247,8 @@ extension StackView {
                 delta = Int(newSize.width - v.bounds.width)
             case .vertical:
                 delta = Int(newSize.height - v.bounds.height)
+            @unknown default:
+                break
             }
             viewModel.recalculateChildViewOffsets(fromIndex: v.tag, delta: delta)
             v.constraint(withIdentifier: ConstraintTag.W)?.constant = min(newSize.width, stackV.bounds.width)
@@ -274,12 +281,13 @@ extension StackView {
                     self.scrollView.contentOffset.x = childView.frame.minX
                 case .vertical:
                     self.scrollView.contentOffset.y = childView.frame.minY
+                @unknown default:
+                    break
                 }
             }
         }
     }
     
-    @available(iOS 11.0, *)
     public func setCustomSpacing(_ spacing: CGFloat, atIndex index: Int) {
         if index > 0 && index < stackV.arrangedSubviews.count {
             stackV.setCustomSpacing(spacing, after: stackV.arrangedSubviews[index-1])

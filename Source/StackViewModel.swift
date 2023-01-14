@@ -66,6 +66,8 @@ internal final class StackViewModel {
             }
             // update the newly acquired position
             scrollLastContentOffset = scrollView.contentOffset.y
+        @unknown default:
+            break
         }
         
         if let index = getProximityIndex(offsetValue, parity: parity),

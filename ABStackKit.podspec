@@ -8,8 +8,8 @@ s.author = { "Ashish Bhandari" => "ashishbhandariplus@gmail.com" }
 s.platform = :ios
 s.source = { :git => "https://github.com/iashishbhandari/ABStackKit.git", :tag => "#{s.version}"}
 
-s.swift_version = '4.2'
-s.ios.deployment_target = '9.0'
+s.swift_version = '5.0'
+s.ios.deployment_target = '12.0'
 
 s.source_files = "Source/*.swift"
 

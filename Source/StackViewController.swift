@@ -2,9 +2,7 @@
 
 import UIKit
 
-@available(iOS 9.0, *)
-open class StackViewController: UIViewController {
-    
+open class StackViewController: UIViewController, StackViewEmbeddable {
     open var stackView: StackView!
     
     override open func viewDidLoad() {
@@ -14,10 +12,7 @@ open class StackViewController: UIViewController {
         view.addSubview(stackView)
         view.addEdgeAnchors(onView: stackView)
     }
-}
 
-extension StackViewController: StackViewEmbeddable {
-    
     open func willConfigure(_ stackView: StackView) {
         // override this method to configure your StackView
         stackView.axis = .vertical
