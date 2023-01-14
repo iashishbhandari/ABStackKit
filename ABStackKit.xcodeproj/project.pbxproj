@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75013D1E297325D500BF582B /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75013D1D297325D500BF582B /* AppFlow.swift */; };
+		75013D20297325F900BF582B /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75013D1F297325F900BF582B /* ViewControllerFactory.swift */; };
 		A101B65E214CECC200DD2A3C /* HorizontalStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A101B65D214CECC200DD2A3C /* HorizontalStackView.xib */; };
 		A101B660214CED5F00DD2A3C /* HorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101B65F214CED5F00DD2A3C /* HorizontalStackView.swift */; };
 		A11D4788214523FE0070A3C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D4787214523FE0070A3C3 /* AppDelegate.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		75013D1D297325D500BF582B /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
+		75013D1F297325F900BF582B /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		A101B65D214CECC200DD2A3C /* HorizontalStackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HorizontalStackView.xib; sourceTree = "<group>"; };
 		A101B65F214CED5F00DD2A3C /* HorizontalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackView.swift; sourceTree = "<group>"; };
 		A101B662214CEEEF00DD2A3C /* UIColor+ABStackKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ABStackKit.swift"; sourceTree = "<group>"; };
@@ -74,6 +78,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75013D1C297325C500BF582B /* main */ = {
+			isa = PBXGroup;
+			children = (
+				A11D4787214523FE0070A3C3 /* AppDelegate.swift */,
+				75013D1D297325D500BF582B /* AppFlow.swift */,
+				75013D1F297325F900BF582B /* ViewControllerFactory.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
 		A101B661214CEDE100DD2A3C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +101,7 @@
 		A11D4786214523FE0070A3C3 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				75013D1C297325C500BF582B /* main */,
 				A101B661214CEDE100DD2A3C /* Views */,
 				A15D8904214D0E10001E54F3 /* ViewControllers */,
 				A1E831852153E6D3002A1868 /* Supporting Files */,
@@ -166,7 +181,6 @@
 		A1E831852153E6D3002A1868 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A11D4787214523FE0070A3C3 /* AppDelegate.swift */,
 				A101B662214CEEEF00DD2A3C /* UIColor+ABStackKit.swift */,
 				A11D478E214524010070A3C3 /* Assets.xcassets */,
 				A11D4790214524010070A3C3 /* LaunchScreen.storyboard */,
@@ -294,7 +308,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A11D478A214523FE0070A3C3 /* ExampleXIBViewController.swift in Sources */,
+				75013D1E297325D500BF582B /* AppFlow.swift in Sources */,
 				A1B936AE214816630093F542 /* ExampleViewController.swift in Sources */,
+				75013D20297325F900BF582B /* ViewControllerFactory.swift in Sources */,
 				A1E831842153E42A002A1868 /* UIColor+ABStackKit.swift in Sources */,
 				A11D4788214523FE0070A3C3 /* AppDelegate.swift in Sources */,
 				A19F1DD5214D0F0A0069EDA0 /* StackViewButton.swift in Sources */,

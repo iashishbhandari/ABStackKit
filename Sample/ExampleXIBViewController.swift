@@ -2,10 +2,12 @@
 
 import ABStackKit
 
-// MARK: 1 - StackView embedded to XIB
+
 class ExampleXIBViewController: UIViewController {
-   
     @IBOutlet weak var stackView: StackView!
+    
+    typealias BarButtonSelector = (_ title: String?) -> Void
+    var onBarButtonSelection: BarButtonSelector?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,15 +18,7 @@ class ExampleXIBViewController: UIViewController {
     }
     
     @IBAction func tapOnBarButton(_ sender: Any) {
-        if let btn = sender as? UIBarButtonItem {
-            switch btn.title {
-            case "2":
-                self.present(ExampleViewController(), animated: true, completion: nil)
-            case "3":
-                self.present(ExampleStackViewController(), animated: true, completion: nil)
-            default: break
-            }
-        }
+        onBarButtonSelection?((sender as? UIBarButtonItem)?.title)
     }
     
     @objc private func tapOnStackView(_ sender: UITapGestureRecognizer) {
@@ -33,7 +27,6 @@ class ExampleXIBViewController: UIViewController {
 }
 
 extension ExampleXIBViewController: StackViewEmbeddable {
-    
     func willConfigure(_ stackView: StackView) {
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -78,4 +71,3 @@ extension ExampleXIBViewController: StackViewEmbeddable {
         print("Scrolled on ChildView \(index+1)")
     }
 }
-

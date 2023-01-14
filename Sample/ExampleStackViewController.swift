@@ -2,9 +2,7 @@
 
 import ABStackKit
 
-// MARK: 3 - StackView embedded via Inheritance
 class ExampleStackViewController: StackViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow

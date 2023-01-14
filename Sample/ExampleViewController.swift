@@ -2,9 +2,7 @@
 
 import ABStackKit
 
-// MARK: 2 - StackView embedded programmatically
 class ExampleViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,7 +20,7 @@ class ExampleViewController: UIViewController {
         stackView.addGestureRecognizer(tapGesture)
     }
     
-    @objc fileprivate func tapOnStackView(_ sender: UITapGestureRecognizer) {
+    @objc private func tapOnStackView(_ sender: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
 }
