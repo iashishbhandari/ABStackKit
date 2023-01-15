@@ -1,10 +1,4 @@
-//
-//  ViewControllerFactory.swift
-//  Sample
-//
-//  Created by Ashish Bhandari on 14/01/23.
-//  Copyright © 2023 iashishbhandari. All rights reserved.
-//
+// MIT license. Copyright (c) 2023 Ashish Bhandari. All rights reserved.
 
 import UIKit
 
@@ -18,15 +12,21 @@ final class ViewControllerFactory {
         return exampleVC
     }
     
-    static func makeViewControllerProgramatically() -> UIViewController {
+    static func makeViewControllerProgramatically(
+        onViewSelection: @escaping () -> Void
+    ) -> UIViewController {
         let exampleVC = ExampleViewController()
         exampleVC.view.accessibilityIdentifier = "PRO"
+        exampleVC.onViewSelection = onViewSelection
         return exampleVC
     }
     
-    static func makeViewControllerViaInheritance() -> UIViewController {
+    static func makeViewControllerViaInheritance(
+        onViewSelection: @escaping () -> Void
+    ) -> UIViewController {
         let exampleVC = ExampleStackViewController()
         exampleVC.view.accessibilityIdentifier = "IN"
+        exampleVC.onViewSelection = onViewSelection
         return exampleVC
     }
 }

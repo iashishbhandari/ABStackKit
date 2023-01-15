@@ -1,8 +1,10 @@
-// MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
+// MIT license. Copyright (c) 2023 Ashish Bhandari. All rights reserved.
 
 import ABStackKit
 
-class ExampleViewController: UIViewController {
+final class ExampleViewController: UIViewController {
+    var onViewSelection: (() -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,12 +23,11 @@ class ExampleViewController: UIViewController {
     }
     
     @objc private func tapOnStackView(_ sender: UITapGestureRecognizer) {
-        dismiss(animated: true, completion: nil)
+        onViewSelection?()
     }
 }
 
 extension ExampleViewController: StackViewEmbeddable {
-    
     func willConfigure(_ stackView: StackView) {
         stackView.spacing = 9
         stackView.axis = .vertical

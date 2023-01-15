@@ -1,19 +1,21 @@
-// MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
+// MIT license. Copyright (c) 2023 Ashish Bhandari. All rights reserved.
 
 import ABStackKit
 
-class ExampleStackViewController: StackViewController {
+final class ExampleStackViewController: StackViewController {
+    var onViewSelection: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnStackView(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onStackViewTap(_:)))
         tapGesture.numberOfTapsRequired = 1
         stackView.addGestureRecognizer(tapGesture)
     }
     
-    @objc private func tapOnStackView(_ sender: UITapGestureRecognizer) {
-        dismiss(animated: true, completion: nil)
+    @objc private func onStackViewTap(_ sender: UITapGestureRecognizer) {
+        onViewSelection?()
     }
     
     override func willConfigure(_ stackView: StackView) {

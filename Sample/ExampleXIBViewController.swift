@@ -1,9 +1,8 @@
-// MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
+// MIT license. Copyright (c) 2023 Ashish Bhandari. All rights reserved.
 
 import ABStackKit
 
-
-class ExampleXIBViewController: UIViewController {
+final class ExampleXIBViewController: UIViewController {
     @IBOutlet weak var stackView: StackView!
     
     typealias BarButtonSelector = (_ title: String?) -> Void

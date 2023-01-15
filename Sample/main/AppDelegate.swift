@@ -1,10 +1,9 @@
-// MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
+// MIT license. Copyright (c) 2023 Ashish Bhandari. All rights reserved.
 
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     
     private lazy var navigationController = UINavigationController()

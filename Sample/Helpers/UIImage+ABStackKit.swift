@@ -1,10 +1,4 @@
-//
-//  UIImage+ABStackKit.swift
-//  Sample
-//
-//  Created by Ashish Bhandari on 15/01/23.
-//  Copyright © 2023 iashishbhandari. All rights reserved.
-//
+// MIT license. Copyright (c) 2023 Ashish Bhandari. All rights reserved.
 
 import UIKit
 
