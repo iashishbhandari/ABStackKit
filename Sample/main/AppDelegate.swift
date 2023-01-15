@@ -19,10 +19,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appFlow.start()
         return true
     }
-    
-    private func makeRootController() -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        let exampleVC = storyBoard.instantiateViewController(withIdentifier: "ExampleXIBViewController")
-        return exampleVC
-    }
 }

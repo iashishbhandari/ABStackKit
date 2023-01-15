@@ -3,10 +3,9 @@
 import ABStackKit
 
 class StackViewButton: UIButton {
-    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        self.setBackgroundImage(UIImage(imageLiteralResourceName: "bg"), for: .normal)
+        self.setBackgroundImage(UIImage.image(size: bounds.size), for: .normal)
         let stackView = StackView(frame: bounds)
         stackView.delegate = self
         self.addSubview(stackView)
@@ -15,7 +14,6 @@ class StackViewButton: UIButton {
 }
 
 extension StackViewButton: StackViewEmbeddable {
-    
     func willConfigure(_ stackView: StackView) {
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -47,6 +45,3 @@ extension StackViewButton: StackViewEmbeddable {
         print("Scrolled on ChildView \(index+1)")
     }
 }
-
-
-

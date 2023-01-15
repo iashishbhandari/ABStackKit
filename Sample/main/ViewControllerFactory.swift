@@ -19,10 +19,14 @@ final class ViewControllerFactory {
     }
     
     static func makeViewControllerProgramatically() -> UIViewController {
-        return ExampleViewController()
+        let exampleVC = ExampleViewController()
+        exampleVC.view.accessibilityIdentifier = "PRO"
+        return exampleVC
     }
     
     static func makeViewControllerViaInheritance() -> UIViewController {
-        return ExampleStackViewController()
+        let exampleVC = ExampleStackViewController()
+        exampleVC.view.accessibilityIdentifier = "IN"
+        return exampleVC
     }
 }

@@ -12,7 +12,7 @@ class ExampleStackViewController: StackViewController {
         stackView.addGestureRecognizer(tapGesture)
     }
     
-    @objc fileprivate func tapOnStackView(_ sender: UITapGestureRecognizer) {
+    @objc private func tapOnStackView(_ sender: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
     

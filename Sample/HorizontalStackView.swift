@@ -3,7 +3,6 @@
 import ABStackKit
 
 class HorizontalStackView: UIView {
-    
     @IBOutlet weak var stackView: StackView!
     
     static func loadFromNIb() -> HorizontalStackView {
@@ -20,7 +19,6 @@ class HorizontalStackView: UIView {
 }
 
 extension HorizontalStackView: StackViewEmbeddable {
-    
     func willConfigure(_ stackView: StackView) {
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -49,6 +47,6 @@ extension HorizontalStackView: StackViewEmbeddable {
     }
     
     func didScrollToChildView(_ view: UIView, index: Int) {
-        print("Scrolled on ChildView \(index+1)")
+        print("Scrolled to ChildView \(index+1)")
     }
 }

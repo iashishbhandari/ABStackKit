@@ -57,6 +57,7 @@
                         <viewLayoutGuide key="safeArea" id="6Xh-cC-lfa"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <accessibility key="accessibilityConfiguration" identifier="XIB"/>
                         <constraints>
                             <constraint firstItem="Y22-mS-K1G" firstAttribute="top" secondItem="rBW-xq-8zB" secondAttribute="bottom" constant="9" id="EGk-4P-9wY"/>
                             <constraint firstItem="Y22-mS-K1G" firstAttribute="leading" secondItem="6Xh-cC-lfa" secondAttribute="leading" constant="9" id="Ewu-6l-I8R"/>
