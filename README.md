@@ -102,10 +102,6 @@ Thanks! :v:
 [pull request]: https://github.com/iashishbhandari/ABStackKit/pulls
 [GitHub Swift Style Guide]: https://github.com/github/swift-style-guide
 
-### TODO
-
-- [ ] Add Swift Package Manager support
-
 ## Author
 
 Ashish Bhandari, ashishbhandariplus@gmail.com
