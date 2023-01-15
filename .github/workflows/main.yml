@@ -16,5 +16,5 @@ jobs:
         xcodebuild \
           -project ABStackKit.xcodeproj \
           -scheme ABStackKit \
-          -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.0' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' \
           clean build test
