@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        bundle install
+    - name: Build and test
+      run: |
+        xcodebuild \
+          -project ABStackKit.xcodeproj \
+          -scheme ABStackKit \
+          -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.0' \
+          clean build test
